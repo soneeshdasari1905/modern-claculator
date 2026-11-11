@@ -1,0 +1,240 @@
+/* ==========================================================================
+   MODERN MINIMALIST DARK THEME CALCULATOR STYLES
+   ========================================================================== */
+
+/* 1. Design Tokens & Variables */
+:root {
+  /* Color Palette */
+  --bg-app: #0e1117;
+  --bg-card: #161b22;
+  --border-color: rgba(255, 255, 255, 0.08);
+
+  /* Button Colors */
+  --btn-num-bg: #21262d;
+  --btn-num-hover: #30363d;
+  --btn-num-text: #f0f6fc;
+
+  --btn-action-bg: #2d333b;
+  --btn-action-hover: #373e47;
+  --btn-action-text: #8b949e;
+
+  --btn-operator-bg: #ff9f0a;
+  --btn-operator-hover: #ffb340;
+  --btn-operator-text: #ffffff;
+
+  --btn-equals-bg: #ff9f0a;
+  --btn-equals-hover: #ffa826;
+  --btn-equals-text: #ffffff;
+
+  /* Screen Display Colors */
+  --display-prev-text: #6e7681;
+  --display-curr-text: #ffffff;
+
+  /* Typography */
+  --font-main: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Shadows & Radius */
+  --radius-calc: 28px;
+  --radius-btn: 18px;
+  --shadow-elevation: 0 24px 60px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-operator-glow: 0 4px 15px rgba(255, 159, 10, 0.35);
+}
+
+/* 2. Global Reset & Box Sizing */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-app);
+  color: #ffffff;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  /* Ambient subtle gradient glow in the background */
+  background-image: 
+    radial-gradient(circle at 50% 10%, rgba(255, 159, 10, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 90%, rgba(99, 102, 241, 0.05) 0%, transparent 40%);
+}
+
+/* 3. Calculator Outer Frame */
+.calculator-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.calculator {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-calc);
+  box-shadow: var(--shadow-elevation);
+  width: 100%;
+  max-width: 360px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  backdrop-filter: blur(12px);
+}
+
+/* 4. Display Screen */
+.display {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  min-height: 100px;
+  padding: 12px 14px;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  overflow: hidden;
+  word-break: break-all;
+  word-wrap: break-word;
+}
+
+.previous-operand {
+  font-size: 1rem;
+  color: var(--display-prev-text);
+  font-weight: 400;
+  min-height: 1.4rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+}
+
+.current-operand {
+  font-size: 2.5rem;
+  color: var(--display-curr-text);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.5px;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for clean look */
+}
+
+.current-operand::-webkit-scrollbar {
+  display: none;
+}
+
+/* 5. Keypad Grid */
+.keypad {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+/* 6. Button Base Styles */
+.btn {
+  font-family: var(--font-main);
+  height: 64px;
+  border: none;
+  border-radius: var(--radius-btn);
+  font-size: 1.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.15s ease, transform 0.1s ease, box-shadow 0.15s ease;
+  outline: none;
+}
+
+/* Active Click Feedback (Depression effect) */
+.btn:active {
+  transform: scale(0.94);
+}
+
+/* Accessible Keyboard Focus */
+.btn:focus-visible {
+  outline: 2px solid var(--btn-operator-bg);
+  outline-offset: 2px;
+}
+
+/* 7. Button Variations */
+
+/* Numbers (0-9, .) */
+.btn-number {
+  background-color: var(--btn-num-bg);
+  color: var(--btn-num-text);
+}
+
+.btn-number:hover {
+  background-color: var(--btn-num-hover);
+}
+
+/* Zero button stretches across two columns */
+.btn-zero {
+  grid-column: span 2;
+  border-radius: var(--radius-btn);
+}
+
+/* Action Buttons (AC, DEL, %) */
+.btn-action {
+  background-color: var(--btn-action-bg);
+  color: var(--btn-action-text);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.btn-action:hover {
+  background-color: var(--btn-action-hover);
+  color: #ffffff;
+}
+
+/* Math Operators (÷, ×, -, +) */
+.btn-operator {
+  background-color: var(--btn-operator-bg);
+  color: var(--btn-operator-text);
+  font-size: 1.45rem;
+  font-weight: 500;
+}
+
+.btn-operator:hover {
+  background-color: var(--btn-operator-hover);
+  box-shadow: var(--shadow-operator-glow);
+}
+
+/* Equals Button */
+.btn-equals {
+  background-color: var(--btn-equals-bg);
+  color: var(--btn-equals-text);
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.btn-equals:hover {
+  background-color: var(--btn-equals-hover);
+  box-shadow: var(--shadow-operator-glow);
+}
+
+/* 8. Responsive Adjustments for Small Mobile Devices */
+@media (max-width: 380px) {
+  .calculator {
+    padding: 18px;
+    gap: 16px;
+  }
+
+  .keypad {
+    gap: 10px;
+  }
+
+  .btn {
+    height: 56px;
+    font-size: 1.15rem;
+  }
+
+  .current-operand {
+    font-size: 2.1rem;
+  }
+}
+
